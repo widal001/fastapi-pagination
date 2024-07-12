@@ -63,6 +63,7 @@ _items_transformer_val: ContextVar[Optional[ItemsTransformer]] = ContextVar("_it
 
 
 def resolve_params(params: Optional[TAbstractParams] = None) -> TAbstractParams:
+    """TODO: @widal001 - Add docstring here."""
     if params is None:
         try:
             return cast(TAbstractParams, _params_val.get())
@@ -73,6 +74,7 @@ def resolve_params(params: Optional[TAbstractParams] = None) -> TAbstractParams:
 
 
 def resolve_items_transformer(transformer: Optional[ItemsTransformer] = None) -> Optional[ItemsTransformer]:
+    """TODO: @widal001 - Add docstring here."""
     if transformer is None:
         return _items_transformer_val.get()
 
@@ -80,6 +82,7 @@ def resolve_items_transformer(transformer: Optional[ItemsTransformer] = None) ->
 
 
 def pagination_items() -> Sequence[Any]:
+    """TODO: @widal001 - Add docstring here."""
     try:
         return _items_val.get()
     except LookupError:
@@ -183,6 +186,7 @@ def create_page(
 
 
 def response() -> Response:
+    """TODO: @widal001 - Add docstring here."""
     try:
         return _rsp_val.get()
     except LookupError:
@@ -197,6 +201,7 @@ def request() -> Request:
 
 
 def _ctx_var_with_reset(var: ContextVar[T], value: T) -> ContextManager[None]:
+    """TODO: @widal001 - Add docstring here."""
     token = var.set(value)
 
     @contextmanager
@@ -210,14 +215,17 @@ def _ctx_var_with_reset(var: ContextVar[T], value: T) -> ContextManager[None]:
 
 
 def set_params(params: AbstractParams) -> ContextManager[None]:
+    """TODO: @widal001 - Add docstring here."""
     return _ctx_var_with_reset(_params_val, params)
 
 
 def set_page(page: Type[AbstractPage[Any]]) -> ContextManager[None]:
+    """TODO: @widal001 - Add docstring here."""
     return _ctx_var_with_reset(_page_val, page)
 
 
 def set_items_transformer(transformer: ItemsTransformer) -> ContextManager[None]:
+    """TODO: @widal001 - Add docstring here."""
     return _ctx_var_with_reset(_items_transformer_val, transformer)
 
 
@@ -254,6 +262,7 @@ def apply_items_transformer(
     *,
     async_: bool = False,
 ) -> Any:
+    """TODO: @widal001 - Add docstring here."""
     transformer = resolve_items_transformer(transformer)
 
     if transformer is None:
@@ -311,6 +320,7 @@ def pagination_ctx(
     transformer: Optional[ItemsTransformer] = None,
     __page_ctx_dep__: bool = False,
 ) -> Callable[..., AsyncIterator[AbstractParams]]:
+    """TODO: @widal001 - Add docstring here."""
     if page is not None and params is None:
         params = page.__params_type__
 
@@ -387,6 +397,7 @@ def _add_pagination(parent: ParentT) -> None:
 
 
 def add_pagination(parent: ParentT) -> ParentT:
+    """TODO: @widal001 - Add docstring here."""
     _add_pagination(parent)
 
     router = parent.router if isinstance(parent, FastAPI) else parent  # type: ignore[attr-defined]
